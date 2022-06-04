@@ -45,7 +45,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
-
+  carousel_slider: ^4.0.0
+  marquee: ^2.2.2
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -67,7 +68,15 @@ flutter:
 
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-
+  assets:
+    - assets/1b.png
+    - assets/2b.png
+    - assets/3b.png
+    - assets/star.png
+    - assets/banner1.png
+    - assets/banner2.png
+    - assets/service.png
+    - assets/check.png
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
