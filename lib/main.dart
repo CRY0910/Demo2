@@ -81,6 +81,7 @@ class BottomNavigationControllerState
     await Future.delayed(const Duration(seconds: 1));
     print('go!');
     FlutterNativeSplash.remove();
+    _showMessageDialog(context);
   }
 
 
@@ -116,7 +117,45 @@ class BottomNavigationControllerState
 
 
 
+_showMessageDialog(BuildContext context) => showDialog(
+  context: context,
+  builder: (context) => AlertDialog(
+    title: Center(
+      child: Column(
+        children: const [
+          Text("news",
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold)),
+          Divider()
+        ],
+      ),
+    ),
+    content: SizedBox(
+        height: 140.0,
+        width: 60,
+        child: Container(
+            alignment: Alignment.topCenter,
+            child: const Text(
+                "Welcome to Star Exvhange,\ncontract trading,fast trading,\n"
+                    "wealth managment products,"
+                    "\nlevel 10 trading market."))),
+    actions: <Widget>[
+      TextButton(
 
+        child: const Center(child:  Text("Confirm",
+            style: TextStyle(
+                color: Colors.red,
+
+              ))),
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+      ),
+    ],
+  ),
+);
 
 
 

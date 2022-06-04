@@ -185,7 +185,8 @@ class HomePageState extends State<HomePage> {
                       InkWell(
                         child: Container(
                             alignment: Alignment.centerRight,
-                            child: const Icon(Icons.keyboard_arrow_right, size: 14)),
+                            child: const Icon(Icons.keyboard_arrow_right,
+                                size: 14)),
                         onTap: () {
 
                         },
@@ -471,12 +472,11 @@ class HomePageState extends State<HomePage> {
                                         Container(
                                             padding: const EdgeInsets.fromLTRB(
                                                 36, 0, 0, 0),
-                                            child: const Text("Financial\nManagement",
+                                            child: const Text(
+                                                "Financial\nManagement",
                                                 textAlign: TextAlign.center))
                                       ],
-                                    )))
-                        )
-                    ),
+                                    ))))),
                     Container(
                         margin: const EdgeInsets.fromLTRB(0, 2, 6, 0),
                         child: GestureDetector(
@@ -490,7 +490,8 @@ class HomePageState extends State<HomePage> {
                                 },
                             child: Card(
                                 child: Container(
-                                    padding: const EdgeInsets.fromLTRB(6, 6, 14, 0),
+                                    padding:
+                                        const EdgeInsets.fromLTRB(6, 6, 14, 0),
                                     child: Row(
                                       children: [
                                         const Icon(Icons.accessible_outlined),
@@ -518,84 +519,97 @@ class HomePageState extends State<HomePage> {
 
                 SliverList(
                     delegate: SliverChildBuilderDelegate((context, index) {
-                  return  GestureDetector(
+                  return GestureDetector(
                     behavior: HitTestBehavior.translucent,
-                      child: Column(children: [
-                        const SizedBox(height: 5),
-                        Row(children: [
-                          Column(children: [
+                    child: Column(children: [
+                      const SizedBox(height: 5),
+                      Row(children: [
+                        Column(children: [
+                          Container(
+                              padding: const EdgeInsets.fromLTRB(4, 4, 0, 0),
+                              child: Text(titleList[index],
+                                  textAlign: TextAlign.left,
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ))),
+                          Container(
+                              padding: const EdgeInsets.fromLTRB(16, 4, 0, 0),
+                              child: const Text("Trading volume",
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold,
+                                  ))),
+                        ]),
+                        Container(
+                          padding: const EdgeInsets.fromLTRB(100, 0, 0, 0),
+                          child: Column(children: [
+                            Text(priceList[index],
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: statusList[index]
+                                      ? Colors.green
+                                      : Colors.red,
+                                  fontWeight: FontWeight.bold,
+                                )),
                             Container(
-                                padding: const EdgeInsets.fromLTRB(4, 4, 0, 0),
-                                child: Text(titleList[index],
-                                    textAlign: TextAlign.left,
+                                padding: const EdgeInsets.fromLTRB(0, 4, 0, 0),
+                                child: Text("≈\$${priceList[index]}",
                                     style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                    ))),
-                            Container(
-                                padding: const EdgeInsets.fromLTRB(16, 4, 0, 0),
-                                child: const Text("Trading volume",
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
                                       fontSize: 12,
                                       color: Colors.grey,
                                       fontWeight: FontWeight.bold,
                                     ))),
                           ]),
-                          Container(
-                            padding:const EdgeInsets.fromLTRB(100, 0, 0, 0),
-                            child: Column(children: [
-                              Text(priceList[index],
-                                  style:  TextStyle(
+                        ),
+                        const Expanded(child: SizedBox()),
+                        Container(
+                            alignment: Alignment.centerRight,
+                            padding: const EdgeInsets.fromLTRB(0, 4, 10, 0),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: statusList[index]
+                                    ? Colors.green
+                                    : Colors.red,
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => DetailPage(
+                                        currencyInfo: CurrencyInfo(
+                                            titleList[index],
+                                            priceList[index],
+                                            priceList[index],
+                                            btnList[index])),
+                                  ),
+                                );
+                              },
+                              child: Text("${btnList[index]}%",
+                                  style: const TextStyle(
                                     fontSize: 14,
-                                    color:statusList[index]? Colors.green: Colors.red,
-                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
                                   )),
-                              Container(
-                                  padding:const EdgeInsets.fromLTRB(0, 4, 0, 0),
-                                  child: Text("≈\$${priceList[index]}",
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.grey,
-                                        fontWeight: FontWeight.bold,
-                                      ))),
-                            ]),
-                          ),
-                          const Expanded(child: SizedBox()),
-                          Container(
-                              alignment: Alignment.centerRight,
-                              padding: const EdgeInsets.fromLTRB(0, 4, 10, 0),
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary:statusList[index]? Colors.green: Colors.red,
-                                ),
-                                onPressed: () {
-
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => DetailPage(currencyInfo: CurrencyInfo(titleList[index], priceList[index], priceList[index],btnList[index])),
-                                    ),);
-                                },
-                                child:  Text("${btnList[index]}%",
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.white,
-                                    )),
-                              )),
-                        ]),
-                        const SizedBox(height: 5),
-                        const Divider()
-                      ])
-                  , onTap: () {
+                            )),
+                      ]),
+                      const SizedBox(height: 5),
+                      const Divider()
+                    ]),
+                    onTap: () {
                       Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                      builder: (context) => DetailPage(currencyInfo: CurrencyInfo(titleList[index], priceList[index], priceList[index],btnList[index])),
-                      ),);
-
-                      },
-
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailPage(
+                              currencyInfo: CurrencyInfo(
+                                  titleList[index],
+                                  priceList[index],
+                                  priceList[index],
+                                  btnList[index])),
+                        ),
+                      );
+                    },
                   );
                 }, childCount: titleList.length)),
 
@@ -607,6 +621,8 @@ class HomePageState extends State<HomePage> {
     );
   }
 }
+
+
 
 class GetAppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   @override
@@ -622,7 +638,8 @@ class GetAppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             fit: BoxFit.contain,
             height: 32,
           ),
-          Container(padding: const EdgeInsets.all(8.0), child: const Text('Star'))
+          Container(
+              padding: const EdgeInsets.all(8.0), child: const Text('Star'))
         ],
       ),
       elevation: 0.0, //shade
