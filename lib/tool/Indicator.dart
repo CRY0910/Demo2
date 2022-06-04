@@ -10,7 +10,7 @@ class Indicator extends StatelessWidget {
   final double dotSize;
   final double dotPadding;
 
-  Indicator({
+  const Indicator({
     Key? key,
     required this.currentIndex,
     required this.dotCount,
@@ -37,13 +37,13 @@ class Indicator extends StatelessWidget {
         ),
       ),
       onTap: () {
-        this.onItemTap(index);
+        onItemTap(index);
       },
     );
   }
 
   double getWidth() {
-    return dotSize * dotCount + this.dotPadding * (dotCount + 5);
+    return dotSize * dotCount + dotPadding * (dotCount + 5);
   }
 
   double getHeight() {
@@ -51,16 +51,16 @@ class Indicator extends StatelessWidget {
   }
 
   Widget _getItems() {
-    return Container(
+    return SizedBox(
+      width: getWidth(),
+      height: getHeight(),
       child: ListView.builder(
-        itemCount: this.dotCount,
+        itemCount: dotCount,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           return _renderItem(index);
         },
       ),
-      width: this.getWidth(),
-      height: this.getHeight(),
     );
   }
 
@@ -70,14 +70,14 @@ class Indicator extends StatelessWidget {
       children: <Widget>[
         // transparent black background
         Container(
-          height: this.getHeight(),
-          color: Color.fromRGBO(0, 0, 0, 0.6),
+          height: getHeight(),
+          color: const Color.fromRGBO(0, 0, 0, 0.6),
         ),
 
         // dot list
         Container(
-          child: _getItems(),
           alignment: Alignment.center,
+          child: _getItems(),
         ),
       ],
     );

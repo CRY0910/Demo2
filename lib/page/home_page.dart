@@ -178,15 +178,17 @@ class HomePageState extends State<HomePage> {
                       MarqueeSingle(
                           child: Container(
                               color: Colors.white,
-                              width: 300,
+                              width: 350,
                               child: const Text(
-                                  'this is a short text with long width'))),
+                                  'Welcome to Star Exchange,contract trading,fast trading'))),
                       const Spacer(),
                       InkWell(
                         child: Container(
                             alignment: Alignment.centerRight,
                             child: const Icon(Icons.keyboard_arrow_right, size: 14)),
-                        onTap: () {},
+                        onTap: () {
+
+                        },
                       ),
                     ]),
                   )),
@@ -397,10 +399,10 @@ class HomePageState extends State<HomePage> {
                                     padding:
                                         const EdgeInsets.fromLTRB(6, 6, 14, 0),
                                     child: Row(
-                                      children: [
-                                        const Icon(Icons.add_call),
-                                        const Spacer(),
-                                        const Text("Online Customer\n      Service")
+                                      children: const [
+                                        Icon(Icons.add_call),
+                                        Spacer(),
+                                        Text("Online Customer\n      Service")
                                       ],
                                     ))))),
                     Container(
@@ -482,7 +484,7 @@ class HomePageState extends State<HomePage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => HelpPage(),
+                                      builder: (context) => const HelpPage(),
                                     ),
                                   )
                                 },
@@ -575,7 +577,7 @@ class HomePageState extends State<HomePage> {
                                       builder: (context) => DetailPage(currencyInfo: CurrencyInfo(titleList[index], priceList[index], priceList[index],btnList[index])),
                                     ),);
                                 },
-                                child:  Text(btnList[index],
+                                child:  Text("${btnList[index]}%",
                                     style: const TextStyle(
                                       fontSize: 14,
                                       color: Colors.white,

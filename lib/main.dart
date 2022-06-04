@@ -2,13 +2,15 @@
 import 'package:demo2/page/mine_page.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'page/assets_page.dart';
 import 'page/home_page.dart';
 import 'page/quotes_page.dart';
 import 'page/trade_page.dart';
 
 void main() {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const MyApp());
 }
 
@@ -46,38 +48,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
-
-  //const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  void initState() {
-    super.initState();
-    Timer(
-        const Duration(seconds: 3),
-            () => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) =>const BottomNavigationController())));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        color: Colors.white,
-        child: FlutterLogo(size: MediaQuery.of(context).size.height));
-  }
-}
-
-
-
-class BottomNavigationController extends StatefulWidget {
-  const BottomNavigationController({Key? key}) : super(key: key);
 
   @override
   BottomNavigationControllerState createState() =>
@@ -85,10 +57,32 @@ class BottomNavigationController extends StatefulWidget {
 }
 
 class BottomNavigationControllerState
-    extends State<BottomNavigationController> {
+    extends State<MyHomePage> {
   //目前選擇頁索引值
   int _currentIndex = 0; //預設值
   final pages = [const HomePage(), const QuotesPage(), const TradePage(),const  AssetsPage(),const MinePage()];
+
+  @override
+  void initState() {
+    super.initState();
+    initialization();
+  }
+
+  void initialization() async {
+    // This is where you can initialize the resources needed by your app while
+    // the splash screen is displayed.  Remove the following example because
+    // delaying the user experience is a bad design practice!
+    // ignore_for_file: avoid_print
+    print('ready in 3...');
+    await Future.delayed(const Duration(seconds: 1));
+    print('ready in 2...');
+    await Future.delayed(const Duration(seconds: 1));
+    print('ready in 1...');
+    await Future.delayed(const Duration(seconds: 1));
+    print('go!');
+    FlutterNativeSplash.remove();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -126,118 +120,7 @@ class BottomNavigationControllerState
 
 
 
-class SecondScreenPage extends StatefulWidget {
-  const SecondScreenPage({Key? key}) : super(key: key);
-
-  //const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  @override
-  State<SecondScreenPage> createState() => _SecondScreenPageState();
-}
-
-class _SecondScreenPageState extends State<SecondScreenPage> {
-  final List<Widget> _items = [
-    const Text(
-      'Index 0: Home',
-    ),
-    const Text(
-      'Index 1: Profile',
-    ),
-    const Text(
-      'Index 2: Shop',
-    ),
-  ];
-  int _selectedIndex = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return   Scaffold(
-      appBar: const GetAppBarWidget(),
-      body:Center(
-          child: IndexedStack(
-              index: _selectedIndex,
-              children: _items
-          )//_items.elementAt(_index),
-      ),
-      bottomNavigationBar: _showBottomNav(),
-    );
-  }
-
-  Widget _showBottomNav()
-  {
-    return BottomNavigationBar(
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.account_circle),
-          label: 'Profile',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.shopping_bag),
-          label: 'Shop',
-        ),
-      ],
-      currentIndex: _selectedIndex,
-      selectedItemColor: Colors.orange,
-      unselectedItemColor: Colors.grey,
-      onTap: _onTap,
-    );
-  }
-
-
-  void _onTap(int index)
-  {
-    _selectedIndex = index;
-    setState(() {
-
-    });
-  }
-
-}
 
 
 
-
-
-
-
-class GetAppBarWidget extends StatelessWidget implements PreferredSizeWidget {
-
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return AppBar(
-      centerTitle: true,
-      title:  const Text("BOX"),
-      elevation: 0.0, //shade
-      actions: [
-        IconButton(
-          icon: const Icon(Icons.search),
-          onPressed: () => {},
-        ),
-        IconButton(
-          icon: const Icon(Icons.supervisor_account),
-          onPressed: () => {},
-        ),
-      ],
-    );
-  }
-
-
-
-  const GetAppBarWidget({Key? key}) :super(key: key);
-
-  @override
-  // TODO: implement preferredSize
-  Size get preferredSize => const Size.fromHeight(60);
-
-
-  Size getSize() {
-    return const Size(100.0, 100.0);
-  }
-}
 
